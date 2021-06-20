@@ -33,7 +33,7 @@ jobs:
         yarn install
     - name: Production Build
       run: |
-        yarn CI=false build
+        yarn build CI=false
     - name: Unit Tests
       run: |
         yarn test
