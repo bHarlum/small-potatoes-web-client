@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders learn react link', () => {
   render(<App />);
-  const title = screen.getByText(/Small Potatoes/i);
+  const title = screen.getByText(/Small Potatoes/);
   expect(title).toBeInTheDocument();
 });
