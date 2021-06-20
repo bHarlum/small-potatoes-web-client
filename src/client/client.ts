@@ -40,7 +40,7 @@ export default class Client {
           items: toCamelCase(response.data.Items) as Item[],
           currentItem: response.data.CurrentItem,
         }
-      }).catch((e) => {
+      }).catch(() => {
         return {
           id: "",
           owner: "",
