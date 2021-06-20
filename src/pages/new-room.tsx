@@ -24,7 +24,7 @@ const NewRoom = () => {
   const [errorText, setErrorText] = useState("");
   const [items, setItems] = useState<Item[]>([initialItem]);
   const [isLoading, setIsLoading] = useState(false);
-  const setUserName = useSetRecoilState(sessionOwner); 1
+  const setUserName = useSetRecoilState(sessionOwner);
   const setDraftItems = useSetRecoilState(draftItems);
   const { state, contents } = useRecoilValueLoadable(createNewRoom);
   const history = useHistory()

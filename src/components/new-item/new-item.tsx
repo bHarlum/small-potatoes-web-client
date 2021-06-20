@@ -1,8 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react"
-import { useSetRecoilState } from "recoil"
 import styled from "styled-components"
 import { pallete } from "../../assets"
-import { currentRoom } from "../../state"
 
 type NewItemState = {
   title: string;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil"
 import styled from "styled-components";
 import { GetRoomResponse } from "../client/types";
@@ -14,7 +14,7 @@ const RoomPage = () => {
 
   const socket = roomId ? new WebSocket(`ws://localhost:8080/event/${roomId}`, "protocolOne") : undefined;
 
-  const history = useHistory()
+  // const history = useHistory()
 
 
   useEffect(() => {

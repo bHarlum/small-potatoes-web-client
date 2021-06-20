@@ -1,7 +1,8 @@
 
-
+// @ts-ignore
 export const toCamelCase = (o: any) => {
-  var newO, origKey, newKey, value
+
+  let newO, origKey, newKey, value
   if (o instanceof Array) {
     return o.map(function(value) {
         if (typeof value === "object") {
@@ -12,6 +13,7 @@ export const toCamelCase = (o: any) => {
   } else {
     newO = {}
     for (origKey in o) {
+      // @ts-ignore
       if (o.hasOwnProperty(origKey)) {
         newKey = (origKey.charAt(0).toLowerCase() + origKey.slice(1) || origKey).toString()
         value = o[origKey]
