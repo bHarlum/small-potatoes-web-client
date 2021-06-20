@@ -1,24 +1,28 @@
 import React from 'react';
-import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
+import { RecoilRoot } from 'recoil';
+import Header from './components/header/header';
+import HomePage from './pages/home';
+import NewRoom from './pages/new-room';
+import RoomPage from './pages/room';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
-      <Router>
-        <Switch>
-          <Route render={() => <div/>} path="/"/>
-          <Route render={() => <div/>} path="/room"/>
-          <Route render={() => <div/>} path="/new-room"/>
-          <Route render={() => <div/>} path="/:id"/>
-        </Switch>
-      </Router>
+      <RecoilRoot>
+        <Router>
+          <Header title="Small Potatoes" subTitle="Small potatoes, make small fries" />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/new-room" component={NewRoom} />
+            <Route exact path="/room/:id" component={RoomPage} /> 
+          </Switch>
+        </Router>
+      </RecoilRoot>
     </div>
   );
 }
