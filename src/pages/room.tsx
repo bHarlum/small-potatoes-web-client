@@ -14,8 +14,6 @@ const RoomPage = () => {
 
   const socket = roomId ? new WebSocket(`ws://localhost:8080/event/${roomId}`, "protocolOne") : undefined;
 
-  // const history = useHistory()
-
 
   useEffect(() => {
     if(socket) {
