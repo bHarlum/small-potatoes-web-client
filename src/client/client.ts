@@ -1,11 +1,12 @@
 import axios from "axios";
 import { toCamelCase } from "../helpers/to-camel-case";
+import { getServerAddress } from "./get-server-address";
 import { EstimatePayload, EstimateResponse, GetRoomPayload, GetRoomResponse, Item, NewRoomPayload, NewRoomResponse } from "./types";
 
 export default class Client {
   private url: string;
   constructor() {
-    this.url = "http://localhost:8080"
+    this.url = getServerAddress("http");
     axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
   }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil"
 import styled from "styled-components";
+import { getServerAddress } from "../client/get-server-address";
 import { GetRoomResponse } from "../client/types";
 import { EstimationBar } from "../components/esitimation-bar/estimation-bar";
 import TaskList from "../components/task-list/task-list";
@@ -12,8 +13,7 @@ const RoomPage = () => {
 
   const [roomId] = useRecoilState(currentRoom)
 
-  const socket = roomId ? new WebSocket(`ws://localhost:8080/event/${roomId}`, "protocolOne") : undefined;
-
+  const socket = roomId ? new WebSocket(`${getServerAddress("ws")}/event/${roomId}`, "protocolOne") : undefined;
 
   useEffect(() => {
     if(socket) {
