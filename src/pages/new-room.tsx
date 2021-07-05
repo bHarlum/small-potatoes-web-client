@@ -4,8 +4,8 @@ import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { pallete } from "../assets";
 import Button from "../components/button/button";
-import { H2 } from "../components/font-headers/font-headers";
-import { NewItem } from "../components/new-item/new-item";
+import { H2, H4 } from "../components/font-headers/font-headers";
+import { NewItem, NewItemState } from "../components/new-item/new-item";
 import { sessionOwner, createNewRoom, draftItems } from "../state";
 
 type Item = {
@@ -13,16 +13,17 @@ type Item = {
   description: string;
 }
 
-const NewRoom = () => {
-
-  const initialItem = {
+const NEW_ITEM = {
     title: "",
     description: "",
-  }
+}
+
+const NewRoom = () => {
 
   const [ownerName, setOwnerName] = useState("");
   const [errorText, setErrorText] = useState("");
-  const [items, setItems] = useState<Item[]>([initialItem]);
+  const [items, setItems] = useState<Item[]>([]);
+  const [draftItem, setDraftItem] = useState<Item>(NEW_ITEM);
   const [isLoading, setIsLoading] = useState(false);
   const setUserName = useSetRecoilState(sessionOwner);
   const setDraftItems = useSetRecoilState(draftItems);
@@ -33,12 +34,20 @@ const NewRoom = () => {
     setOwnerName(e.target.value);
   }
 
+  const handleDraftItemChange = (newState: NewItemState) => {
+    setDraftItem(newState)
+  }
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorText("");
     if(!ownerName) {
       setErrorText("*Name is required")
       return
+    }
+    if(items.length < 1) {
+        setErrorText("*Must have at leat one")
+        return
     }
     setUserName(ownerName);
     setDraftItems(items);
@@ -51,7 +60,7 @@ const NewRoom = () => {
   }
 
   const onAddItem = () => {
-    setItems([...items, initialItem])
+    setItems([...items, draftItem])
   }
 
   useEffect(() => {
@@ -73,30 +82,40 @@ const NewRoom = () => {
 
   return (
     <StyledPageContainer>
-      <InnerContainer>
-        <H2>
-          New Room
-        </H2>
-        <form onSubmit={handleSubmit}>
-          <FormContainer >
-            <NewRoomInput  value={ownerName} onChange={handleChange} placeholder="Your name"/>
-            <Button>Create</Button>
-            {<ErrorText>{errorText}</ErrorText>}
-            {isLoading && <LoadingText>Loading...</LoadingText>}
-            {items.map((item, index) => {
-              return (
-                <NewItem key={index} onChange={(newValues) => {
-                  updateItems(index, newValues)
-                }} />
-              )
-            })}
-          </FormContainer>
-        </form>
-        <Button onClick={onAddItem}>Add+</Button>
-      </InnerContainer>
+        <OuterContainer>
+            <InnerContainer>
+                <H2>
+                New Room
+                </H2>
+                    <form onSubmit={handleSubmit}>
+                        <FormContainer >
+                            <NewRoomInput  value={ownerName} onChange={handleChange} placeholder="Your name"/>
+                            <Button>Create</Button>
+                            {<ErrorText>{errorText}</ErrorText>}
+                            {isLoading && <LoadingText>Loading...</LoadingText>}
+                            <NewItem key={0} onChange={handleDraftItemChange} />
+                        </FormContainer>
+                    </form>
+                <Button onClick={onAddItem}>Add+</Button>
+            </InnerContainer>
+            <InnerContainer>
+                {items.map((item, index) => {
+                    return (
+                        <H4 key={index}>{item.title}</H4>
+                    )
+                })}
+            </InnerContainer>
+        </OuterContainer>
     </StyledPageContainer>
   );
 }
+
+const OuterContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+`;
 
 const StyledPageContainer = styled.div`
   width: 100%;
@@ -117,7 +136,7 @@ const LoadingText = styled.p`
 const InnerContainer = styled.div`
   padding-top: 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   width: 25%;
   margin: 0 auto;

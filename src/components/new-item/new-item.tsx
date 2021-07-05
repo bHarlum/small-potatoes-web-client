@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react"
 import styled from "styled-components"
 import { pallete } from "../../assets"
 
-type NewItemState = {
+export type NewItemState = {
   title: string;
   description: string;
 }
