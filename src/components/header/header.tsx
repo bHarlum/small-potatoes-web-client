@@ -17,6 +17,10 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
     history.push("/")
   }
 
+  const onLogoutClick = () => {
+      history.push("/logout")
+  }
+
   return (
     <StyledHeader>
       <TitleContainer onClick={onHomeClick}>
@@ -26,6 +30,7 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
         </InnerContainer>
         {props.subTitle && <SubTitle>{props.subTitle}</SubTitle>}
       </TitleContainer>
+      <LogoutLink onClick={onLogoutClick}>logout</LogoutLink>
     </StyledHeader>
   )
 }
@@ -36,10 +41,19 @@ const StyledHomeIcon = styled(HomeSVG)`
   height: 30px;
 `;
 
+const LogoutLink = styled.div`
+    padding: 0.8rem;
+    text-decoration: underline;
+    cursor: pointer;
+`;
+
 const StyledHeader = styled.div`
   height: 6rem;
   width: 100%;
-  background-color: #48F1B4
+  background-color: #48F1B4;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const InnerContainer = styled.div`
